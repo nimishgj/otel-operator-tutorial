@@ -13,7 +13,14 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/do
 k create ns opentelemetry-operator-system 
 ```
 
-4. Run the below commands to create a otel collector and a sample application in nodejs
+4. Install the actual otel-operator
+```shell
+helm install opentelemetry-operator open-telemetry/opentelemetry-operator \
+--namespace opentelemetry-operator-system \
+--set "manager.collectorImage.repository=ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s"
+```
+
+5. Run the below commands to create a otel collector and a sample application in nodejs
 > replace the image with the actual image url you build using the readme in the express folder
 ```shell
 k apply -f otel-collector-yml
